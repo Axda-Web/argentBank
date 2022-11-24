@@ -16,8 +16,7 @@ import Home from '../pages/home'
 import Login from '../pages/login'
 import Profile from '../pages/profile';
 import Error from '../pages/error'
-
-import Test from '../pages/test/Test';
+import ProtectedRoute from '../pages/protected-route';
 
 const App = () => {
   return (
@@ -30,8 +29,10 @@ const App = () => {
             <Route path='/' element={<Home/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/profile' element={<Profile/>} />
+            <Route element={<ProtectedRoute />}>
+              <Route path='/profile' element={<Profile/>} />
+            </Route>
             <Route path='/*' element={<Error />} />
-            <Route path='/test' element={<Test />} />
           </Routes>
           <Footer/>
         </Router>
