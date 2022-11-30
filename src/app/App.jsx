@@ -3,8 +3,6 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 //Styling imports
 import GlobalStyles from '../style/Global.styled';
-import { ThemeProvider } from 'styled-components';
-import theme from '../style/theme';
 import StyledApp from './App.styled';
 
 //Components imports
@@ -20,7 +18,7 @@ import ProtectedRoute from '../pages/protected-route';
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <GlobalStyles />
       <StyledApp>
         <Router>
@@ -28,7 +26,6 @@ const App = () => {
           <Routes>
             <Route path='/' element={<Home/>} />
             <Route path='/login' element={<Login/>} />
-            <Route path='/profile' element={<Profile/>} />
             <Route element={<ProtectedRoute />}>
               <Route path='/profile' element={<Profile/>} />
             </Route>
@@ -37,7 +34,7 @@ const App = () => {
           <Footer/>
         </Router>
       </StyledApp>
-    </ThemeProvider>
+    </>
   );
 }
 
