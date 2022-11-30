@@ -1,37 +1,60 @@
-import React, { useState } from "react";
+import { useEffect } from "react";
 import StyledForm from "./Form.styled";
-import { Link } from "react-router-dom";
-import axios from "../../utils/axios";
+import { useNavigate } from "react-router-dom";
 
-import Button from "../button";
+// import { addToLocalStorage, removeFromLocalStorage } from "../../utils/localStorage";
+
 
 import { useSelector, useDispatch } from "react-redux";
-import { setUserName, setPassword, fetchToken} from "../../features/auth-slice/authSlice";
-import { selectPassword, selectUserName, selectToken, selectStatus} from "../../features/auth-slice/authSlice";
+import { setUserName, setPassword, toggleRememberUser, getToken} from "../../features/login-slice/loginSlice";
+import { selectPassword, selectUserName, selectToken, selectRememberUser} from "../../features/login-slice/loginSlice";
+
+import { toggleIsLoggedIn } from "../../features/profile-slice/profileSlice";
 
 
 const Form = () => {
+
+  const navigate = useNavigate()
 
   const dispatch = useDispatch()
   const userName = useSelector(selectUserName)
   const password = useSelector(selectPassword)
   const token = useSelector(selectToken)
-  const status = useSelector(selectStatus)
+  const rememberUser = useSelector(selectRememberUser)
 
-  const handleChange = (e) => {
+  useEffect( () => {
+    if (token) {
+      navigate('/profile')
+      dispatch(toggleIsLoggedIn())
+    }
+
+  }, [token])
+
+  const handleInputFieldChange = (e) => {
     const { name, value } = e.target;
     name === 'username' ? dispatch(setUserName(value)) : dispatch(setPassword(value))
   };
 
+  const handleCheckboxChange = e => {
+    dispatch(toggleRememberUser())
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("form submited");
     try {
-      dispatch(fetchToken({email: userName, password}))
-      // const response = await axios.post('/login', { email: username, password })
-      // console.log(response)
+      dispatch(getToken({email: userName, password}))
     } catch (err) {
-      console.log(err)
+      console.log(err.response)
+    }
+
+    if (token) {
+
+      // // Manage 'Remember me' checkbox
+      // rememberUser ? addToLocalStorage() : removeFromLocalStorage()
+
+      // Manage navigation
+      // navigate('/profile')
+      // dispatch(toggleIsLoggedIn())
     }
   };
 
@@ -44,7 +67,7 @@ const Form = () => {
           id="username"
           name="username"
           value={userName}
-          onChange={handleChange}
+          onChange={handleInputFieldChange}
         />
       </div>
       <div className="input-wrapper">
@@ -54,15 +77,20 @@ const Form = () => {
           id="password"
           name="password"
           value={password}
-          onChange={handleChange}
+          onChange={handleInputFieldChange}
         />
       </div>
       <div className="input-remember">
-        <input type="checkbox" id="remember-me" />
+        <input  
+          type="checkbox"
+          id="remember-me"
+          checked={rememberUser}
+          onChange={handleCheckboxChange}
+        />
         <label htmlFor="remember-me">Remember me</label>
       </div>
 
-      <Button className="sign-in-button">Sign in</Button>
+      <button className="btn">Sign in</button>
     </StyledForm>
   );
 };

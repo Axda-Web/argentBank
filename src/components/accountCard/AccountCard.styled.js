@@ -36,10 +36,15 @@ const StyledAccountCard = styled.section`
         margin: 0;
     }
 
+    .account-content-wrapper.cta {
+        margin-top: 2rem;
+    }
+
     @media (min-width: 720px) {
         flex-direction: row;
 
         .account-content-wrapper.cta {
+            margin-top: 0;
             flex: 0;
         }
     }

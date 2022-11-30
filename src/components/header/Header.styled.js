@@ -19,7 +19,10 @@ const StyledHeader = styled.header`
 
 .main-nav-item {
   text-decoration: none;
+  border: none;
+  background-color: transparent;
   margin-right: 0.5rem;
+  font-size: 1rem;
 }
 
 .main-nav-item:hover {
@@ -34,6 +37,25 @@ const StyledHeader = styled.header`
 .main-nav-logo-image {
   max-width: 100%;
   width: 200px;
+}
+
+.logout-icon {
+  vertical-align: top;
+  margin-left: 1rem;
+}
+
+.profile-btn {
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 `
 

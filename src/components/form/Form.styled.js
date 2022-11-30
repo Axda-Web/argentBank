@@ -25,6 +25,10 @@ const StyledForm = styled.form`
         }
     }
 
+    .btn {
+        margin-top: 1rem;
+    }
+
 `
 
 export default StyledForm
