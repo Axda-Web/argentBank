@@ -29,6 +29,16 @@ body {
   width: 1px !important;
   white-space: nowrap !important; /* 3 */
 }
+
+.btn {
+  display: block;
+  border-color: #00bc77;
+  background-color: #00bc77;
+  color: #fff;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
 `
 
 export default GlobalStyles
