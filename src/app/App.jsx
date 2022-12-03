@@ -15,6 +15,7 @@ import Login from '../pages/login'
 import Profile from '../pages/profile';
 import Error from '../pages/error'
 import ProtectedRoute from '../pages/protected-route';
+import ApiDocs from '../pages/api-docs';
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
             <Route element={<ProtectedRoute />}>
               <Route path='/profile' element={<Profile/>} />
             </Route>
+            <Route path='/api-docs' element={<ApiDocs />} />
             <Route path='/*' element={<Error />} />
           </Routes>
           <Footer/>
