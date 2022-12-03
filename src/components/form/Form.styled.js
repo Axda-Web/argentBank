@@ -18,6 +18,7 @@ const StyledForm = styled.form`
     }
 
     .input-remember {
+        margin-top: 1rem;
         display: flex;
 
         label {
@@ -27,6 +28,15 @@ const StyledForm = styled.form`
 
     .btn {
         margin-top: 1rem;
+    }
+
+    .error-message {
+        color: red;
+        font-weight: bold;
+    }
+
+    .error-style {
+        border: 2px solid red;
     }
 
 `

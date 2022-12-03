@@ -3,7 +3,20 @@ import StyledHome from './Home.styled'
 
 import FeatureCardContainer from '../../components/featureCardContainer'
 
+import { useDispatch } from 'react-redux'
+import { setError } from '../../features/login-slice/loginSlice'
+
+
+/**
+ * Home component
+ * @component
+ * @returns {JSX.Element} 
+ */
 const Home = () => {
+
+  const dispatch = useDispatch()
+  dispatch(setError())
+
   return (
     <StyledHome>
       <div className="hero">

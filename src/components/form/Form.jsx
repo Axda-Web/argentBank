@@ -2,60 +2,109 @@ import { useEffect } from "react";
 import StyledForm from "./Form.styled";
 import { useNavigate } from "react-router-dom";
 
-// import { addToLocalStorage, removeFromLocalStorage } from "../../utils/localStorage";
+import { getUserNameFromLocalStorage, addToLocalStorage, removeFromLocalStorage } from "../../utils/localStorage";
 
 
 import { useSelector, useDispatch } from "react-redux";
-import { setUserName, setPassword, toggleRememberUser, getToken} from "../../features/login-slice/loginSlice";
-import { selectPassword, selectUserName, selectToken, selectRememberUser} from "../../features/login-slice/loginSlice";
+import {
+    setUserName,
+    setPassword,
+    setRememberUser,
+    getToken,
+    setError,
+    selectError,
+    selectPassword,
+    selectUserName,
+    selectToken,
+    selectRememberUser
+  } from "../../features/login-slice/loginSlice";
 
 import { toggleIsLoggedIn } from "../../features/profile-slice/profileSlice";
 
 
+
+/**
+ * Form component
+ * @component
+ * @returns {JSX.Element} 
+ */
 const Form = () => {
 
+  // Connect hooks
   const navigate = useNavigate()
-
   const dispatch = useDispatch()
+
+  // Get values from the store
   const userName = useSelector(selectUserName)
   const password = useSelector(selectPassword)
   const token = useSelector(selectToken)
   const rememberUser = useSelector(selectRememberUser)
+  const error = useSelector(selectError)
+  const userNameFromLocalStorage = getUserNameFromLocalStorage()
 
   useEffect( () => {
     if (token) {
+
+      //Remove error styling
+      dispatch(setError(false))
+
       navigate('/profile')
       dispatch(toggleIsLoggedIn())
     }
 
+    // Check if userName exist in the localStorage
+    if (userNameFromLocalStorage) {
+      dispatch(setUserName(userNameFromLocalStorage))
+    }
+
   }, [token])
 
-  const handleInputFieldChange = (e) => {
+
+  /**
+   * handleInputFieldChange
+   * Update userName and password value in the store
+   * @param {*} e 
+   * @return {void}
+   */
+  const handleInputFieldChange = e => {
     const { name, value } = e.target;
     name === 'username' ? dispatch(setUserName(value)) : dispatch(setPassword(value))
   };
 
+
+  /**
+   * handleCheckboxChange
+   * Update checkbox state in the store
+   * Add or remove the userName value to the local storage
+   * @param {*} e 
+   * @return {void}
+   */
   const handleCheckboxChange = e => {
-    dispatch(toggleRememberUser())
+    const { checked } = e.target
+    dispatch(setRememberUser(checked))
+
+    !rememberUser ? addToLocalStorage(userName) : removeFromLocalStorage()
   }
 
+
+  /**
+   * handleSubmit
+   * Send credentials to the API to get the auth token
+   * Set error to true if the request failed
+   * Empty form input fields
+   * @param {*} e 
+   * @return {void}
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      dispatch(getToken({email: userName, password}))
-    } catch (err) {
-      console.log(err.response)
-    }
+    dispatch(getToken({email: userName, password}))
 
-    if (token) {
+    if(!token){
+      dispatch(setError(true))
+    } 
 
-      // // Manage 'Remember me' checkbox
-      // rememberUser ? addToLocalStorage() : removeFromLocalStorage()
-
-      // Manage navigation
-      // navigate('/profile')
-      // dispatch(toggleIsLoggedIn())
-    }
+    dispatch(setUserName(''))
+    dispatch(setPassword(''))
   };
 
   return (
@@ -63,6 +112,7 @@ const Form = () => {
       <div className="input-wrapper">
         <label htmlFor="username">Username</label>
         <input
+          className={error ? 'error-style' : undefined}
           type="text"
           id="username"
           name="username"
@@ -73,6 +123,7 @@ const Form = () => {
       <div className="input-wrapper">
         <label htmlFor="password">Password</label>
         <input
+          className={error ? 'error-style' : undefined}
           type="password"
           id="password"
           name="password"
@@ -80,6 +131,7 @@ const Form = () => {
           onChange={handleInputFieldChange}
         />
       </div>
+      { error && <span className="error-message">Username or passwork incorrect</span> }
       <div className="input-remember">
         <input  
           type="checkbox"

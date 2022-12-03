@@ -2,8 +2,6 @@ import { useEffect } from 'react'
 import StyledProfile from './Profile.styled'
 
 import Loader from '../../components/loader'
-
-
 import AccountCardContainer from '../../components/accountCardContainer'
 
 import { useSelector, useDispatch } from "react-redux";
@@ -23,17 +21,19 @@ import {  setFirstName,
 import { selectToken } from '../../features/login-slice/loginSlice';
 
 
-
+/**
+ * Profile component
+ * @component
+ * @returns {JSX.Element} 
+ */
 const Profile = () => {
 
+  // Connect hooks
   const dispatch = useDispatch()
   const token = useSelector(selectToken)
+
+  // Get values from the store
   const getUserDataStatus = useSelector(selectGetUserDataStatus)
-
-  useEffect( () => {
-    dispatch(getUserData(token))
-  }, [])
-
   const firstName = useSelector(selectFirstName)
   const lastName = useSelector(selectLastName)
   const firstNameEdit = useSelector(selectFirstNameEdit)
@@ -41,26 +41,51 @@ const Profile = () => {
   const displayEditNameFrom = useSelector(selectDisplayEditNameForm)
 
 
+  useEffect( () => {
+    // Get user data from the API
+    dispatch(getUserData(token))
+  }, [])
+
+
+  /**
+   * handleEditNameBtnClick
+   * Toggle edit name form display
+   * Empty form input fields
+   * @param {*} e 
+   * @return {void}
+   */
   const handleEditNameBtnClick = e => {
     dispatch(toggleDisplayEditNameForm())
     dispatch(setFirstName(''))
     dispatch(setLastName(''))
   }
 
+
+  /**
+   * handleInputFieldChange
+   * Update first name and last name value in the store
+   * @param {*} e 
+   * @return {void}
+   */
   const handleInputFieldChange = e => {
     const { name, value } = e.target;
     name === 'firstName' ? dispatch(setFirstName(value)) : dispatch(setLastName(value));
   }
 
+
+  /**
+   * handleSubmit
+   * Submit new name + token to the API
+   * Mask the edit name form
+   * Empty form input fields
+   * @param {*} e 
+   * @return {void}
+   */
   const handleSaveNameClick = e => {
-    try {
       dispatch(updateUserData({ data: { firstName: firstNameEdit, lastName: lastNameEdit }, token}))
       dispatch(toggleDisplayEditNameForm())
       dispatch(setFirstName(''))
       dispatch(setLastName(''))
-    } catch (err) {
-      console.log(err.response)
-    }
   }
 
   return (
@@ -68,7 +93,7 @@ const Profile = () => {
       { getUserDataStatus === 'OK'
       ? (<StyledProfile>
           <div className="header">
-            <h1>Welcome back<br />{firstName} {lastName}</h1>
+            <h1>Welcome back<br />{`${firstName} ${lastName}`}</h1>
             {displayEditNameFrom ? 
               (<>
                 <div className="input-wrapper">
