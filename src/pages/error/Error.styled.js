@@ -5,41 +5,26 @@ const StyledError = styled.main`
     max-width: 1200px;
     margin: 0 auto;
     height: 55vh;
-    color: ${({theme}) => theme.colors.primary};
+    color: #00bc77;
     text-align: center;
 
     .number {
-        font-size: ${({theme}) => theme.fontSize.big};
+        font-size: 3rem;
         font-weight: 700;
         margin: 2em 0 0;
     }
 
     .text {
-        font-size: ${({theme}) => theme.fontSize.md};
+        font-size: 1rem;
         margin-bottom: 150px;
     }
 
     .link {
 
-        font-size: ${({theme}) => theme.fontSize.sm};
+        font-size: 1rem;
         
         &:visited, &:active {
-            color: ${({theme}) => theme.colors.primary};
-        }
-    }
-
-    @media (min-width: ${({theme}) => theme.breakpoints.desktop}) {
-        .number {
-            font-size: ${({theme}) => theme.fontSize.huge};
-            margin-top: 140px;
-        }
-
-        .text {
-            font-size: ${({theme}) => theme.fontSize.xl};
-        }
-
-        .link {
-            font-size: ${({theme}) => theme.fontSize.md};
+            color: #00bc77;
         }
     }
 `

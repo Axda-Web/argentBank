@@ -3,6 +3,12 @@ import StyledError from './Error.styled'
 
 import { Link } from 'react-router-dom'
 
+
+/**
+ * Error component
+ * @component
+ * @returns {JSX.Element} 
+ */
 const Error = () => {
   return (
     <StyledError>
