@@ -3,6 +3,12 @@ import StyledAccountCardContainer from './AccountCardContainer.styled'
 
 import AccountCard from '../accountCard'
 
+
+/**
+ * AccountCardContainer component
+ * @component
+ * @returns {JSX.Element} 
+ */
 const AccountCardContainer = () => {
 
   const accounts = [

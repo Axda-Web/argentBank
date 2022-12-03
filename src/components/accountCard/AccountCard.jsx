@@ -1,7 +1,16 @@
 import React from 'react'
 import StyledAccountCard from './AccountCard.styled'
+import PropTypes from 'prop-types'
 
 
+/**
+ * AccountCard component
+ * @component
+ * @param {String} title 
+ * @param {String} amount
+ * @param {String} description
+ * @returns {JSX.Element} 
+ */
 const AccountCard = ({title, amount, description}) => {
   return (
     <StyledAccountCard>
@@ -18,3 +27,11 @@ const AccountCard = ({title, amount, description}) => {
 }
 
 export default AccountCard
+
+
+//Proptypes
+AccountCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  amount: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+}

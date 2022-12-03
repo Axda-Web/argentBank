@@ -3,6 +3,12 @@ import StyledLogin from './Login.styled'
 
 import Form from '../../components/form'
 
+
+/**
+ * Login component
+ * @component
+ * @returns {JSX.Element} 
+ */
 const Login = () => {
   return (
     <StyledLogin>

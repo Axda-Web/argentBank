@@ -1,6 +1,12 @@
 import React from 'react'
 import StyledFooter from './Footer.styled'
 
+
+/**
+ * Footer component
+ * @component
+ * @returns {JSX.Element} 
+ */
 const Footer = () => {
   return (
     <StyledFooter>

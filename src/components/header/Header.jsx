@@ -9,20 +9,34 @@ import { useNavigate } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 import { toggleIsLoggedIn, selectFirstName, selectIsLoggedIn, selectDisplayEditNameForm, toggleDisplayEditNameForm, setFirstName, setLastName } from '../../features/profile-slice/profileSlice';
-import { selectToken, resetToken } from '../../features/login-slice/loginSlice';
+import { selectToken, resetToken, resetTokenStatus } from '../../features/login-slice/loginSlice';
 
 
-
+/**
+ * Header component
+ * @component
+ * @returns {JSX.Element} 
+ */
 const Header = () => {
 
+  // Connect hooks
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  // Get values from the store
   const isLoggedIn = useSelector(selectIsLoggedIn)
   const token = useSelector(selectToken)
   const firstName = useSelector(selectFirstName)
   const displayEditNameForm = useSelector(selectDisplayEditNameForm)
 
 
+  /**
+   * handleSignClick
+   * If user is logged in: set isLoggedIn to false, reset auth token, navigate to home page and mask the edit name form
+   * If user is logged out: navigate to login page
+   * @param {*} e 
+   * @return {void}
+   */
   const handleSignClick = e => {
     if (token) {
 
@@ -34,12 +48,21 @@ const Header = () => {
 
       dispatch(toggleIsLoggedIn())
       dispatch(resetToken())
+      dispatch(resetTokenStatus())
       navigate('/')
     } else {
       navigate('/login')
     }
   }
 
+
+  /**
+   * handleProfileClick
+   * Navigate to the profile page
+   * If edit name form is displayed: mask edit name form and empty form input fields
+   * @param {*} e 
+   * @return {void}
+   */
   const handleProfileClick = e => {
     if (displayEditNameForm) {
       dispatch(toggleDisplayEditNameForm())

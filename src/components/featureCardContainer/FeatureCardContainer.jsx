@@ -6,6 +6,12 @@ import securityIcon from '../../assets/img/icon-security.png'
 
 import FeatureCard from '../featureCard'
 
+
+/**
+ * FeatureCardContainer component
+ * @component
+ * @returns {JSX.Element} 
+ */
 const FeatureCardContainer = () => {
 
   const featureItems = [
