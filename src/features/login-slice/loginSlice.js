@@ -13,6 +13,7 @@ const options = {
         password: '',
         getTokenStatus: '',
         token: '',
+        error: false,
         rememberUser: false
     },
     reducers: {
@@ -24,13 +25,21 @@ const options = {
             ...state,
             password: action.payload
         }),
-        toggleRememberUser: (state) => ({
+        setRememberUser: (state, action) => ({
             ...state,
-            rememberUser: !state.rememberUser
+            rememberUser: action.payload
         }), 
         resetToken: (state) => ({
             ...state,
             token: ''
+        }),
+        resetTokenStatus: (state) => ({
+            ...state,
+            getTokenStatus: ''
+        }),
+        setError: (state, action) => ({
+            ...state,
+            error: action.payload
         })
     },
     extraReducers: {
@@ -54,7 +63,7 @@ const options = {
 const loginSlice = createSlice(options)
 
 // Action creators
-export const { setUserName, setPassword, toggleRememberUser, resetToken } = loginSlice.actions
+export const { setUserName, setPassword, setRememberUser, resetToken, resetTokenStatus, setError } = loginSlice.actions
 
 // Reducer
 export default loginSlice.reducer
@@ -63,4 +72,6 @@ export default loginSlice.reducer
 export const selectUserName = state => state.login.userName
 export const selectPassword = state => state.login.password
 export const selectToken = state => state.login.token
+export const selectGetTokenStatus = state => state.login.getTokenStatus
+export const selectError = state => state.login.error
 export const selectRememberUser = state => state.login.rememberUser
