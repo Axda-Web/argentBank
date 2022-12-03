@@ -2,17 +2,20 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { userProfile, updateUserProfile } from '../../utils/axios'
 
 
+// getUserData thunk
 export const getUserData = createAsyncThunk('profile/getUserData', async (token, thunkAPI) => {
     const fullName = await userProfile(token);
     return fullName;
   });
 
+// updateUserData thunk
 export const updateUserData = createAsyncThunk('profile/updateUserData', async ({ data, token }, thunkAPI) => {
     const fullName = await updateUserProfile(data, token);
     return fullName;
   });
 
 
+// Profile slice reducer options
 const options = {
     name: 'profile',
     initialState: {
@@ -76,15 +79,16 @@ const options = {
     }
 }
 
+// Profile slice
 const profileSlice = createSlice(options)
 
 // Action creators
 export const { setFirstName, setLastName, toggleIsLoggedIn, toggleDisplayEditNameForm } = profileSlice.actions
 
-//Reducer
+// Reducer
 export default profileSlice.reducer
 
-//Selectors
+// Selectors
 export const selectFirstName = state => state.profile.firstName
 export const selectLastName = state => state.profile.lastName
 export const selectFirstNameEdit = state => state.profile.firstNameEdit

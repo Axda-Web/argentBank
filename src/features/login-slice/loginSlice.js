@@ -1,11 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { login } from '../../utils/axios'
 
+// getToken thunk
 export const getToken = createAsyncThunk('login/getToken', async (credentials, thunkAPI) => {
     const token = await login(credentials)
     return token;
   });
 
+
+// Login slice reducer options 
 const options = {
     name: 'login',
     initialState: {
@@ -59,7 +62,7 @@ const options = {
     }
 }
 
-
+// Login slice
 const loginSlice = createSlice(options)
 
 // Action creators
