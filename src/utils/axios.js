@@ -8,9 +8,12 @@ const axiosRequest =  axios.create({
 
 // Get JWT from the API
 export const login = async ({email, password}) => {
-    return  await axiosRequest.post('login', {email, password})
-        .then( response => response.data.body.token)
-        .catch( error => console.log(error))
+    try {
+        const response = await axiosRequest.post('login', {email, password})
+        return response.data.body.token
+    } catch(err) {
+        console.log(err)
+    }
 }
 
 
@@ -23,12 +26,15 @@ export const userProfile = async (token) =>{
         }
     }
 
-    let response = await axiosRequest.post('profile', null, config)
-    
-    return ({
-            firstName: response.data.body.firstName,
-            lastName: response.data.body.lastName
-        })
+    try {
+        const response = await axiosRequest.post('profile', null, config)   
+        return ({
+                firstName: response.data.body.firstName,
+                lastName: response.data.body.lastName
+            })
+    } catch(err) {
+        console.log(err)
+    }
 }
 
 
@@ -41,10 +47,13 @@ export const updateUserProfile = async ( data, token ) => {
         }
     }
 
-    const response = await axiosRequest.put('profile', data, config)
-
-    return ({
-        firstName: response.data.body.firstName,
-        lastName: response.data.body.lastName
-    })
+    try {
+        const response = await axiosRequest.put('profile', data, config)
+        return ({
+            firstName: response.data.body.firstName,
+            lastName: response.data.body.lastName
+        })
+    } catch(err) {
+        console.log(err)
+    }
 }
