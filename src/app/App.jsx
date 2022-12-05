@@ -17,6 +17,13 @@ import Error from '../pages/error'
 import ProtectedRoute from '../pages/protected-route';
 import ApiDocs from '../pages/api-docs';
 
+
+
+/**
+ * App component
+ * @component
+ * @returns {JSX.Element} 
+ */
 const App = () => {
   return (
     <>

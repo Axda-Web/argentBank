@@ -114,60 +114,7 @@ paths:
         '500':
           description: Internal Server Error
 
-  /accounts:
-    get:
-      security:
-        - Bearer: []
-      tags:
-        - Transactions module
-      summary: User Accounts API
-      description: API for fetching accounts 
-      parameters:
-        - in: header
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-          type: string
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: User accounts retrieved successully
-          schema:
-            $ref: '#/definitions/ApiAccountsResponse'
-        '400':
-          description: Accounts not found
-        '500':
-          description: Internal Server Error
-  /account/{id}:
-    get:
-      security:
-        - Bearer: []
-      tags:
-        - Transactions module
-      summary: User Accounts API
-      description: API for fetching account
-      parameters:
-        - in: header
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-          type: string
-        - in: path
-          name: accountId
-          type: string
-          required: true
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: User account retrieved successully
-          schema:
-            $ref: '#/definitions/ApiOneAccountResponse'
-        '400':
-          description: Account not found
-        '500':
-          description: Internal Server Error
+  
   /account/{id}/transactions:
     get:
       security:
