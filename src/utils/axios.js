@@ -12,7 +12,7 @@ export const login = async ({email, password}) => {
         const response = await axiosRequest.post('login', {email, password})
         return response.data.body.token
     } catch(err) {
-        console.log(err)
+        throw err
     }
 }
 
@@ -33,7 +33,7 @@ export const userProfile = async (token) =>{
                 lastName: response.data.body.lastName
             })
     } catch(err) {
-        console.log(err)
+        throw err
     }
 }
 
@@ -54,6 +54,6 @@ export const updateUserProfile = async ( data, token ) => {
             lastName: response.data.body.lastName
         })
     } catch(err) {
-        console.log(err)
+        throw err
     }
 }

@@ -53,11 +53,13 @@ const options = {
         [getToken.fulfilled]: (state, action) => ({
             ...state,
             getTokenStatus: 'OK',
-            token: action.payload
+            token: action.payload,
+            error: false
         }),
         [getToken.rejected]: (state) => ({
             ...state,
             getTokenStatus: 'KO',
+            error: true
         })
     }
 }

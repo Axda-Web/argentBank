@@ -11,7 +11,6 @@ import {
     setPassword,
     setRememberUser,
     getToken,
-    setError,
     selectError,
     selectPassword,
     selectUserName,
@@ -43,11 +42,8 @@ const Form = () => {
   const userNameFromLocalStorage = getUserNameFromLocalStorage()
 
   useEffect( () => {
+
     if (token) {
-
-      //Remove error styling
-      dispatch(setError(false))
-
       navigate('/profile')
       dispatch(toggleIsLoggedIn())
     }
@@ -98,10 +94,6 @@ const Form = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(getToken({email: userName, password}))
-
-    if(!token){
-      dispatch(setError(true))
-    } 
 
     dispatch(setUserName(''))
     dispatch(setPassword(''))

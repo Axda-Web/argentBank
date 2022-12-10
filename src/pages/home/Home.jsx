@@ -4,7 +4,7 @@ import StyledHome from './Home.styled'
 import FeatureCardContainer from '../../components/featureCardContainer'
 
 import { useDispatch } from 'react-redux'
-import { setError } from '../../features/login-slice/loginSlice'
+import { setError, setUserName, setPassword } from '../../features/login-slice/loginSlice'
 
 
 /**
@@ -15,7 +15,9 @@ import { setError } from '../../features/login-slice/loginSlice'
 const Home = () => {
 
   const dispatch = useDispatch()
-  dispatch(setError())
+  dispatch(setError(false))
+  dispatch(setUserName())
+  dispatch(setPassword())
 
   return (
     <StyledHome>
